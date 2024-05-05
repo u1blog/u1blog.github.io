@@ -28,7 +28,7 @@ twitter_username:
 github_username:
 
 # Build settings
-theme: tactile
+theme: jekyll-theme-tactile
 plugins:
   - jekyll-feed
 # Exclude from processing.
