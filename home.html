@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Homepage</title>
+    <style>
+      /* Reset & Base */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, sans-serif;
+        color: #fff;
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        text-align: center;
+        //backdrop-filter: blur(3px);
+      }
+
+      h1 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+      }
+
+      /* Search Bar */
+      .search-box {
+        display: flex;
+        justify-content: center;
+        width: 80%;
+        max-width: 500px;
+        margin-bottom: 2rem;
+      }
+
+      .search-box input {
+        flex: 1;
+        padding: 0.75rem 1rem;
+        border: none;
+        border-radius: 25px 0 0 25px;
+        outline: none;
+        font-size: 1rem;
+      }
+
+      .search-box button {
+        padding: 0.75rem 1.2rem;
+        border: none;
+        border-radius: 0 25px 25px 0;
+        background-color: rgba(255, 255, 255, 0.3);
+        color: white;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+
+      .search-box button:hover {
+        background-color: rgba(255, 255, 255, 0.5);
+      }
+
+      /* Links Section */
+      .links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+      }
+
+      .links a {
+        background: rgba(0, 0, 0, 0.4);
+        padding: 0.7rem 1.2rem;
+        border-radius: 20px;
+        color: #fff;
+        text-decoration: none;
+        transition: background 0.3s;
+      }
+
+      .links a:hover {
+        background: rgba(255, 255, 255, 0.3);
+      }
+
+      footer {
+        position: absolute;
+        bottom: 10px;
+        font-size: 0.8rem;
+        opacity: 0.7;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      // Default configuration
+      const defaultConfig = {
+        name: "David",
+        links: [
+          { name: "Gmail", url: "https://mail.google.com" },
+          { name: "YouTube", url: "https://www.youtube.com" },
+          { name: "Hacker News", url: "https://news.ycombinator.com" },
+        ],
+      };
+
+      // Function to parse URL parameters
+      function getUrlParams() {
+        const params = new URLSearchParams(window.location.search);
+        const name = params.get("name");
+        const linksParam = params.get("links");
+        let links = null;
+
+        if (linksParam) {
+          try {
+            links = JSON.parse(decodeURIComponent(linksParam));
+          } catch (e) {
+            console.error("Error parsing links parameter:", e);
+          }
+        }
+
+        return { name, links };
+      }
+
+      // Get config from URL or use default
+      const { name: urlName, links: urlLinks } = getUrlParams();
+      const name = urlName || defaultConfig.name;
+      const links = urlLinks || defaultConfig.links;
+
+      // Set background image
+      const images = [
+        "backgrounds/1.jpg",
+        "backgrounds/2.jpg",
+        "backgrounds/3.jpg",
+        "backgrounds/4.jpg",
+        "backgrounds/5.jpg",
+      ];
+      const img = images[Math.floor(Math.random() * images.length)];
+      document.body.style.backgroundImage = `url('${img}')`;
+
+      // Update the heading
+      document.addEventListener("DOMContentLoaded", () => {
+        const heading = document.getElementById("welcome-heading");
+        heading.textContent = `Welcome ${name}!`;
+
+        // Populate links
+        const linksContainer = document.getElementById("links-container");
+        links.forEach((link) => {
+          const a = document.createElement("a");
+          a.href = link.url;
+          a.textContent = link.name;
+          a.target = "_blank";
+          linksContainer.appendChild(a);
+        });
+      });
+    </script>
+    <h1 id="welcome-heading"></h1>
+
+    <form
+      class="search-box"
+      action="https://www.google.com/search"
+      method="get"
+    >
+      <input type="text" name="q" placeholder="Search Google..." />
+      <button type="submit">🔍</button>
+    </form>
+
+    <div class="links" id="links-container">
+      <!-- Links will be dynamically inserted here -->
+    </div>
+  </body>
+</html>
