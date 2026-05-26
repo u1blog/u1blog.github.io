@@ -1,0 +1,41 @@
+---
+layout: default
+---
+
+<div class="home">
+
+  <section class="home-hero">
+    <p class="home-hero-eyebrow">u1.au</p>
+    <h1>{{ site.title | escape }}</h1>
+    {%- if site.description -%}
+      <p class="tagline">{{ site.description | escape }}</p>
+    {%- endif -%}
+  </section>
+
+  {%- if site.posts.size > 0 -%}
+  <section class="posts-section">
+    <h2 class="posts-heading">Writing</h2>
+    <ul class="post-list">
+      {%- for post in site.posts -%}
+      <li class="post-item">
+        <a href="{{ post.url | relative_url }}" class="post-item-link">
+          <div class="post-meta-line">
+            <time class="post-date" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %-d, %Y" }}</time>
+            {%- if post.categories.size > 0 -%}
+              {%- for cat in post.categories -%}
+                <span class="post-category-tag">{{ cat }}</span>
+              {%- endfor -%}
+            {%- endif -%}
+          </div>
+          <h2>{{ post.title | escape }}</h2>
+          {%- if post.excerpt -%}
+            <p class="post-excerpt">{{ post.excerpt | strip_html | truncatewords: 25 }}</p>
+          {%- endif -%}
+        </a>
+      </li>
+      {%- endfor -%}
+    </ul>
+  </section>
+  {%- endif -%}
+
+</div>
