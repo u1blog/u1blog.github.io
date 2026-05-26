@@ -1,0 +1,2 @@
+#!/bin/bash
+GIT_SSH_COMMAND='ssh -i ~/.ssh/u1_id_ed25519 -o IdentitiesOnly=yes' git push "$@"
